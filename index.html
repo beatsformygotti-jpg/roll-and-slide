@@ -485,52 +485,71 @@ body{background:radial-gradient(ellipse at 34% 25%,#4b254f 0,transparent 58%),ra
 
 .reward-hud[hidden],.metro-hud .stat-right[hidden]{display:none;}
 .result-dialog[data-simple="true"] :is(.rating-balls,.rating-meter,.rating-details){display:none;}
+
+.view-controls{display:grid;gap:10px;justify-items:start;}
+.language-picker{display:flex;gap:3px;padding:3px;background:#271f3abf;border:1px solid #b797b771;border-radius:9px;}
+.language-picker button{border:0;border-radius:5px;padding:0 10px;min-height:36px;background:none;color:#f0e1f1;cursor:pointer;font:750 12px/1 "Avenir Next",system-ui,sans-serif;}
+.language-picker button[aria-pressed=true]{background:#eeb2d0;color:#301b37;}
+.language-picker button:focus-visible{outline:2px solid #ffd8ed;outline-offset:2px;}
+@media(max-width:610px){
+ .view-controls{order:-1;display:flex;align-items:center;gap:7px;max-width:100%;}
+ .orientation-picker{order:0;}
+ .orientation-picker>span{display:none;}
+ .language-picker{padding:2px;}
+ .language-picker button{min-height:32px;padding:0 8px;font-size:11px;}
+ .metro-app .device-frame{width:min(calc((100svh - 55px)*.432),calc(100vw - 12px));}
+}
 </style><body><main class="metro-app" aria-label="Roll &amp; Slide">
- <div class="device-frame"><div class="metro-screen" tabindex="0" aria-label="Игровой экран Redmi A5. Свайп или стрелка двигает все шары в выбранную сторону. Для паузы удерживай палец на поле или нажми Escape.">
+ <div class="device-frame"><div class="metro-screen" tabindex="0" aria-label="Игровой экран Redmi A5. Свайп или стрелка двигает все шары в выбранную сторону. Для паузы удерживай палец на поле или нажми Escape." data-i18n-label="gameScreen">
   <span class="notch" aria-hidden="true"></span>
-  <section class="home-view" aria-label="Главное меню">
+  <section class="home-view" aria-label="Главное меню" data-i18n-label="mainMenu">
    <canvas class="home-field" width="720" height="1640" aria-hidden="true"></canvas>
    <div class="home-layout">
     <div class="menu-sign"><h1 aria-label="Roll &amp; Slide"><span class="sign-first">Roll</span> <span class="sign-amp">&amp;</span> <span class="sign-last">Slide</span></h1></div>
-    <button class="station-btn primary" type="button" data-cmd="play" disabled>Продолжить</button>
-    <button class="station-btn primary" type="button" data-cmd="new">Новая игра</button>
-    <button class="station-btn" type="button" data-cmd="levels">Выбрать уровень</button>
+    <button class="station-btn primary" type="button" data-cmd="play" disabled data-i18n="continue">Продолжить</button>
+    <button class="station-btn primary" type="button" data-cmd="new" data-i18n="newGame">Новая игра</button>
+    <button class="station-btn" type="button" data-cmd="levels" data-i18n="chooseLevel">Выбрать уровень</button>
    </div>
   </section>
-  <section class="game-view" aria-label="Уровень" hidden>
+  <section class="game-view" aria-label="Уровень" data-i18n-label="level" hidden>
    <canvas class="full-board" width="720" height="1640" aria-hidden="true"></canvas>
-   <header class="metro-hud"><div><span class="label">Уровень</span><span class="value level-value">1</span></div><div class="stat-right"><span class="label">Ходов осталось</span><span class="value moves-value">30</span></div></header>
-   <aside class="reward-hud" aria-label="Бонус за диско-жетоны">
-    <div class="reward-meter" role="meter" aria-label="Диско-жетоны" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"><i></i><i></i><i></i><i></i><i></i><span class="reward-count" aria-hidden="true">0/5</span></div>
-    <div class="reward-choices" role="group" aria-label="Выбери бонус за пять жетонов" hidden>
-     <button type="button" data-reward="stop" aria-label="Стоп — добавить стоп-плитку">Стоп</button>
-     <button type="button" data-reward="break" aria-label="Заряд — добавить шар с зарядом и треснувший блок">Заряд</button>
-     <button type="button" data-reward="pass" aria-label="Проход — открыть проход на поле">Проход</button>
+   <header class="metro-hud"><div><span class="label" data-i18n="level">Уровень</span><span class="value level-value">1</span></div><div class="stat-right"><span class="label" data-i18n="movesLeft">Ходов осталось</span><span class="value moves-value">30</span></div></header>
+   <aside class="reward-hud" aria-label="Бонус за диско-жетоны" data-i18n-label="tokenBonus">
+    <div class="reward-meter" role="meter" aria-label="Диско-жетоны" data-i18n-label="discoTokens" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"><i></i><i></i><i></i><i></i><i></i><span class="reward-count" aria-hidden="true">0/5</span></div>
+    <div class="reward-choices" role="group" aria-label="Выбери бонус за пять жетонов" data-i18n-label="chooseBonus" hidden>
+     <button type="button" data-reward="stop" aria-label="Стоп — добавить стоп-плитку" data-i18n-label="stopLabel" data-i18n="stop">Стоп</button>
+     <button type="button" data-reward="break" aria-label="Заряд — добавить шар с зарядом и треснувший блок" data-i18n-label="chargeLabel" data-i18n="charge">Заряд</button>
+     <button type="button" data-reward="pass" aria-label="Проход — открыть проход на поле" data-i18n-label="passageLabel" data-i18n="passage">Проход</button>
     </div>
     <p class="reward-active" hidden></p>
    </aside>
-   <aside class="swipe-tutorial" aria-label="Обучение" hidden><div class="swipe-gesture" aria-hidden="true"><span class="swipe-track"></span><i></i></div><div><strong class="swipe-instruction"></strong><small class="swipe-explanation"></small></div></aside>
-   <aside class="mechanic-tip" aria-label="Новое правило" hidden><canvas width="96" height="96" aria-hidden="true"></canvas><div><strong></strong><small class="mechanic-explanation"></small><small class="mechanic-cue" hidden></small></div></aside>
+   <aside class="swipe-tutorial" aria-label="Обучение" data-i18n-label="tutorial" hidden><div class="swipe-gesture" aria-hidden="true"><span class="swipe-track"></span><i></i></div><div><strong class="swipe-instruction"></strong><small class="swipe-explanation"></small></div></aside>
+   <aside class="mechanic-tip" aria-label="Новое правило" data-i18n-label="newRule" hidden><canvas width="96" height="96" aria-hidden="true"></canvas><div><strong></strong><small class="mechanic-explanation"></small><small class="mechanic-cue" hidden></small></div></aside>
   </section>
-  <div class="metro-modal" data-screen="levels" hidden><section class="dialog" role="dialog" aria-modal="true" aria-label="Выбор уровня"><h2>Уровни</h2><p class="campaign-progress"></p><div class="chapter-select" role="group" aria-label="Диапазон уровней"></div><div class="level-buttons"></div><button class="station-btn" type="button" data-cmd="home">Главное меню</button></section></div>
-  <div class="metro-modal" data-screen="pause" hidden><section class="dialog" role="dialog" aria-modal="true" aria-label="Пауза"><h2>Пауза</h2><button class="station-btn primary" type="button" data-cmd="resume">Продолжить</button><button class="station-btn" type="button" data-cmd="undo" disabled>Отменить ход (PRO)</button><button class="station-btn" type="button" data-cmd="restart">Начать заново</button><button class="station-btn" type="button" data-cmd="home">Главное меню</button></section></div>
+  <div class="metro-modal" data-screen="levels" hidden><section class="dialog" role="dialog" aria-modal="true" aria-label="Выбор уровня" data-i18n-label="levelSelect"><h2 data-i18n="levels">Уровни</h2><p class="campaign-progress"></p><div class="chapter-select" role="group" aria-label="Диапазон уровней" data-i18n-label="levelRange"></div><div class="level-buttons"></div><button class="station-btn" type="button" data-cmd="home" data-i18n="mainMenu">Главное меню</button></section></div>
+  <div class="metro-modal" data-screen="pause" hidden><section class="dialog" role="dialog" aria-modal="true" aria-label="Пауза" data-i18n-label="pause"><h2 data-i18n="pause">Пауза</h2><button class="station-btn primary" type="button" data-cmd="resume" data-i18n="continue">Продолжить</button><button class="station-btn" type="button" data-cmd="undo" disabled data-i18n="undo">Отменить ход (PRO)</button><button class="station-btn" type="button" data-cmd="restart" data-i18n="restart">Начать заново</button><button class="station-btn" type="button" data-cmd="home" data-i18n="mainMenu">Главное меню</button></section></div>
   <div class="metro-modal" data-screen="win" hidden><section class="dialog result-dialog" role="dialog" aria-modal="true" aria-labelledby="result-title" aria-describedby="result-summary">
    <h2 id="result-title"></h2>
    <div class="rating-balls" aria-hidden="true"></div>
    <p id="result-summary" class="visually-hidden"></p>
-   <div class="rating-meter" role="meter" aria-label="Эффективность маршрута" aria-valuemin="0" aria-valuemax="100">
-    <div class="rating-meter-label"><span>Эффективность</span><strong class="rating-percent" aria-hidden="true">0%</strong></div>
+   <div class="rating-meter" role="meter" aria-label="Эффективность маршрута" data-i18n-label="routeEfficiency" aria-valuemin="0" aria-valuemax="100">
+    <div class="rating-meter-label"><span data-i18n="efficiency">Эффективность</span><strong class="rating-percent" aria-hidden="true">0%</strong></div>
     <div class="rating-track" aria-hidden="true"><div class="rating-fill"></div></div>
    </div>
-   <div class="rating-details" aria-hidden="true"><span>Ходы <strong class="rating-moves"></strong></span><span>Минимум <strong class="rating-minimum"></strong></span></div>
-   <p class="token-result" hidden>Диско-жетон собран</p>
-   <p class="reward-result" hidden>Пройдено с бонусом</p>
-   <div class="rating-actions"><button class="station-btn primary" type="button" data-cmd="next">Следующий уровень</button><button class="station-btn" type="button" data-cmd="restart">Сыграть ещё раз</button></div>
+   <div class="rating-details" aria-hidden="true"><span><span data-i18n="moves">Ходы</span> <strong class="rating-moves"></strong></span><span><span data-i18n="minimum">Минимум</span> <strong class="rating-minimum"></strong></span></div>
+   <p class="token-result" hidden data-i18n="tokenCollected">Диско-жетон собран</p>
+   <p class="reward-result" hidden data-i18n="bonusUsed">Пройдено с бонусом</p>
+   <div class="rating-actions"><button class="station-btn primary" type="button" data-cmd="next">Следующий уровень</button><button class="station-btn" type="button" data-cmd="restart" data-i18n="playAgain">Сыграть ещё раз</button></div>
   </section></div>
-  <div class="metro-modal" data-screen="retry" hidden><section class="dialog" role="dialog" aria-modal="true" aria-label="Ходы закончились"><h2>Ходы закончились</h2><button class="station-btn" type="button" data-cmd="undo" disabled>Отменить ход (PRO)</button><button class="station-btn primary" type="button" data-cmd="restart">Начать заново</button><button class="station-btn" type="button" data-cmd="home">Главное меню</button></section></div>
+  <div class="metro-modal" data-screen="retry" hidden><section class="dialog" role="dialog" aria-modal="true" aria-label="Ходы закончились" data-i18n-label="noMoves"><h2 data-i18n="noMoves">Ходы закончились</h2><button class="station-btn" type="button" data-cmd="undo" disabled data-i18n="undo">Отменить ход (PRO)</button><button class="station-btn primary" type="button" data-cmd="restart" data-i18n="restart">Начать заново</button><button class="station-btn" type="button" data-cmd="home" data-i18n="mainMenu">Главное меню</button></section></div>
   <div id="announcer" role="status" class="visually-hidden" aria-live="polite"></div>
  </div></div>
- <aside class="orientation-picker" aria-label="Ориентация телефона"><span>Экран Redmi A5</span><div class="orientation-options" role="group" aria-label="Режим экрана"><button type="button" data-orientation="portrait" aria-pressed="true">Вертикально</button><button type="button" data-orientation="landscape" aria-pressed="false">Горизонтально</button></div></aside>
+ <div class="view-controls"><aside class="orientation-picker" aria-label="Ориентация телефона" data-i18n-label="phoneOrientation"><span data-i18n="phoneScreen">Экран Redmi A5</span><div class="orientation-options" role="group" aria-label="Режим экрана" data-i18n-label="screenMode"><button type="button" data-orientation="portrait" aria-pressed="true" data-i18n="portrait">Вертикально</button><button type="button" data-orientation="landscape" aria-pressed="false" data-i18n="landscape">Горизонтально</button></div></aside>
+  <div class="language-picker" role="group" aria-label="Язык игры" data-i18n-label="language">
+   <button type="button" data-language="ru" lang="ru" aria-label="Русский" aria-pressed="true">RU</button>
+   <button type="button" data-language="en" lang="en" aria-label="English" aria-pressed="false">EN</button>
+  </div>
+ </div>
 </main>
 <script>const W = 520;
 const cellSize=84;
@@ -1090,7 +1109,7 @@ function slideLevel(state,direction,level,record=true){
  return {next:{balls,stops,cracks:state.cracks&~breaks,charge,token},traces,events,changed:true};
 }
 
-const metroLevels=[{"name": "Первый свайп", "cols": 4, "rows": 4, "balls": [6], "holes": [4], "walls": [], "minimum": 1, "practice": true, "budget": 11, "revision": 2, "rewards": []}, {"name": "За угол", "cols": 4, "rows": 4, "balls": [10], "holes": [0], "walls": [], "minimum": 2, "practice": true, "budget": 12, "revision": 3, "rewards": []}, {"name": "Упор", "cols": 4, "rows": 4, "balls": [13], "holes": [7], "walls": [1], "minimum": 2, "practice": true, "budget": 12, "revision": 3, "rewards": []}, {"name": "Две лунки", "cols": 4, "rows": 4, "balls": [0, 15], "holes": [3, 12], "walls": [], "minimum": 2, "practice": true, "budget": 12, "revision": 3, "rewards": []}, {"name": "В разные стороны", "cols": 4, "rows": 4, "balls": [13, 14], "holes": [0, 3], "walls": [], "minimum": 3, "practice": true, "budget": 13, "revision": 3, "rewards": []}, {"name": "На соседнюю линию", "cols": 4, "rows": 4, "minimum": 3, "budget": 13, "balls": [12, 5], "holes": [6, 15], "walls": [], "practice": true, "revision": 2, "rewards": []}, {"name": "По краю", "cols": 4, "rows": 5, "minimum": 3, "budget": 13, "balls": [0, 6], "holes": [15, 17], "walls": [], "practice": true, "revision": 3, "rewards": []}, {"name": "В очередь", "cols": 4, "rows": 5, "minimum": 4, "budget": 14, "balls": [4, 6], "holes": [19, 16], "walls": [12], "practice": true, "revision": 2, "rewards": []}, {"name": "Через середину", "cols": 4, "rows": 5, "minimum": 4, "budget": 14, "balls": [4, 16], "holes": [6, 7], "walls": [5], "revision": 3, "rewards": []}, {"name": "Стоп-плитка", "cols": 4, "rows": 5, "minimum": 4, "budget": 14, "balls": [10, 12], "holes": [5, 7], "walls": [], "intro": "stop", "stops": [6], "guide": "up", "revision": 2, "rewards": []}, {"name": "Остановка у лунки", "cols": 4, "rows": 5, "minimum": 4, "budget": 14, "balls": [12, 13], "holes": [0, 8], "walls": [10], "stops": [14], "revision": 2, "rewards": []}, {"name": "Два поворота", "cols": 4, "rows": 5, "minimum": 5, "budget": 15, "balls": [2, 16], "holes": [13, 15], "walls": [12], "revision": 3, "rewards": []}, {"name": "Объезд", "cols": 4, "rows": 5, "minimum": 5, "budget": 15, "balls": [18, 10], "holes": [16, 5], "walls": [15], "stops": [2], "revision": 2, "rewards": []}, {"name": "Шар с зарядом", "cols": 4, "rows": 6, "minimum": 4, "budget": 14, "balls": [15, 12], "holes": [22, 19], "walls": [16], "intro": "break", "charged": 0, "cracks": [13], "guide": "left", "revision": 3, "rewards": []}, {"name": "За блоком", "cols": 4, "rows": 6, "minimum": 5, "budget": 15, "balls": [8, 23], "holes": [11, 2], "walls": [4], "charged": 1, "cracks": [22], "revision": 2, "rewards": []}, {"name": "Притормози", "cols": 4, "rows": 6, "minimum": 6, "budget": 16, "balls": [3, 21], "holes": [20, 19], "walls": [8, 15], "stops": [17], "revision": 2, "rewards": []}, {"name": "Открой дверь", "cols": 4, "rows": 6, "minimum": 5, "budget": 15, "balls": [4, 14], "holes": [19, 7], "walls": [12], "intro": "gate", "gate": {"cell": 10, "switchCell": 8}, "guide": "down", "revision": 2, "rewards": []}, {"name": "Шар на кнопке", "cols": 4, "rows": 6, "minimum": 6, "budget": 16, "balls": [16, 6], "holes": [0, 17], "walls": [14, 8], "gate": {"cell": 13, "switchCell": 20}, "revision": 2, "rewards": []}, {"name": "Три цвета", "cols": 5, "rows": 6, "minimum": 6, "budget": 15, "balls": [20, 23, 28], "holes": [25, 7, 9], "walls": [18, 0, 15], "revision": 2, "rewards": []}, {"name": "Держи порядок", "cols": 5, "rows": 6, "minimum": 7, "budget": 16, "balls": [24, 28, 26], "holes": [13, 10, 23], "walls": [27, 16, 2, 6], "stops": [20], "revision": 2, "rewards": []}, {"name": "Расчисти путь", "cols": 5, "rows": 6, "minimum": 7, "budget": 16, "balls": [23, 11, 12], "holes": [19, 14, 13], "walls": [4, 6], "charged": 2, "cracks": [7], "revision": 2, "rewards": []}, {"name": "Через дверь", "cols": 5, "rows": 6, "minimum": 8, "budget": 17, "balls": [25, 0, 1], "holes": [16, 17, 28], "walls": [12, 4, 21, 5], "gate": {"cell": 8, "switchCell": 3}, "revision": 2, "rewards": []}, {"name": "Первый диско-жетон", "cols": 5, "rows": 6, "minimum": 7, "budget": 16, "balls": [19, 18], "holes": [11, 29], "walls": [16, 0, 14], "intro": "token", "token": 24, "tokenMinimum": 7, "guide": "down", "revision": 2, "rewards": []}, {"name": "Жетон у остановки", "cols": 5, "rows": 7, "minimum": 8, "budget": 17, "balls": [11, 9, 15], "holes": [8, 26, 1], "walls": [20, 2, 12, 6], "stops": [29], "token": 24, "tokenMinimum": 8, "revision": 2, "rewards": []}, {"name": "У двери", "cols": 5, "rows": 7, "minimum": 9, "budget": 18, "balls": [23, 2, 34], "holes": [26, 25, 16], "walls": [24, 30], "gate": {"cell": 28, "switchCell": 19}, "revision": 2, "rewards": []}, {"name": "Жетон за углом", "cols": 5, "rows": 7, "minimum": 9, "budget": 18, "balls": [0, 26, 30], "holes": [20, 5, 11], "walls": [25, 32, 22, 23], "charged": 0, "cracks": [16], "token": 31, "tokenMinimum": 9, "revision": 2, "rewards": []}, {"name": "Заряд и остановка", "cols": 5, "rows": 7, "minimum": 10, "budget": 19, "balls": [32, 21, 22], "holes": [28, 3, 5], "walls": [13, 24, 33, 20, 12], "charged": 0, "cracks": [16], "stops": [11], "revision": 2, "rewards": []}, {"name": "За открытой дверью", "cols": 5, "rows": 7, "minimum": 10, "budget": 19, "balls": [22, 23, 34], "holes": [2, 32, 3], "walls": [9, 0, 6, 12, 27], "gate": {"cell": 28, "switchCell": 24}, "token": 19, "tokenMinimum": 10, "revision": 2, "rewards": []}, {"name": "До переключателя", "cols": 5, "rows": 7, "minimum": 10, "budget": 19, "balls": [0, 26, 34], "holes": [13, 25, 1], "walls": [29, 6, 27, 30, 23], "stops": [12], "gate": {"cell": 17, "switchCell": 5}, "revision": 2, "rewards": []}, {"name": "Жетон в проходе", "cols": 5, "rows": 7, "minimum": 11, "budget": 20, "balls": [7, 9, 14], "holes": [12, 13, 11], "walls": [1, 19, 10], "charged": 2, "cracks": [8], "stops": [2], "token": 3, "tokenMinimum": 11, "revision": 2, "rewards": []}, {"name": "Боковой проход", "cols": 5, "rows": 8, "minimum": 11, "budget": 20, "balls": [18, 9, 11], "holes": [38, 29, 12], "walls": [34, 3, 10, 7, 22, 28, 2], "charged": 0, "cracks": [35], "gate": {"cell": 16, "switchCell": 6}, "revision": 2, "rewards": [{"kind": "stop", "cell": 13, "minimum": 11}, {"kind": "break", "cell": 22, "ball": 0, "minimum": 5}, {"kind": "pass", "cell": 16, "minimum": 5}]}, {"name": "После поворота", "cols": 5, "rows": 8, "minimum": 12, "budget": 21, "balls": [16, 29, 14], "holes": [19, 18, 35], "walls": [28, 34, 0, 31, 8, 7], "stops": [30], "gate": {"cell": 12, "switchCell": 1}, "revision": 2, "rewards": [{"kind": "stop", "cell": 25, "minimum": 10}, {"kind": "break", "cell": 28, "ball": 1, "minimum": 11}, {"kind": "pass", "cell": 12, "minimum": 9}]}, {"name": "Через два упора", "cols": 5, "rows": 8, "minimum": 12, "budget": 21, "balls": [4, 14, 9], "holes": [6, 36, 17], "walls": [19, 18, 15], "charged": 2, "cracks": [3], "stops": [11], "revision": 2, "rewards": [{"kind": "stop", "cell": 8, "minimum": 6}, {"kind": "break", "cell": 15, "ball": 2, "minimum": 12}, {"kind": "pass", "cell": 19, "minimum": 8}]}, {"name": "Жетон у двери", "cols": 5, "rows": 8, "minimum": 13, "budget": 21, "balls": [9, 23, 24], "holes": [13, 8, 25], "walls": [28, 20, 26, 35, 33, 6], "charged": 2, "cracks": [17], "gate": {"cell": 7, "switchCell": 22}, "token": 4, "tokenMinimum": 13, "revision": 2, "rewards": [{"kind": "stop", "cell": 34, "minimum": 12}, {"kind": "break", "cell": 20, "ball": 2, "minimum": 11}, {"kind": "pass", "cell": 6, "minimum": 11}]}, {"name": "Четыре цвета", "cols": 5, "rows": 8, "minimum": 13, "budget": 21, "balls": [25, 18, 39, 7], "holes": [10, 12, 4, 33], "walls": [15, 36, 26, 6, 2, 34], "stops": [9], "revision": 2, "rewards": [{"kind": "stop", "cell": 14, "minimum": 12}, {"kind": "break", "cell": 34, "ball": 2, "minimum": 9}, {"kind": "pass", "cell": 36, "minimum": 11}]}, {"name": "Стоп и разлом", "cols": 5, "rows": 8, "minimum": 14, "budget": 22, "balls": [18, 6, 17, 1], "holes": [7, 14, 33, 0], "walls": [10, 13, 23, 25, 4, 19, 38], "charged": 0, "cracks": [8], "stops": [20], "revision": 2, "rewards": [{"kind": "stop", "cell": 32, "minimum": 13}, {"kind": "break", "cell": 13, "ball": 0, "minimum": 11}, {"kind": "pass", "cell": 23, "minimum": 12}]}, {"name": "Дверь и объезд", "cols": 6, "rows": 9, "minimum": 14, "budget": 22, "balls": [21, 30, 52, 16], "holes": [11, 50, 32, 36], "walls": [1, 23, 31, 13, 6, 9, 5], "gate": {"cell": 20, "switchCell": 17}, "token": 14, "tokenMinimum": 15, "revision": 2, "rewards": [{"kind": "stop", "cell": 24, "minimum": 10}, {"kind": "break", "cell": 31, "ball": 1, "minimum": 9}, {"kind": "pass", "cell": 20, "minimum": 11}]}, {"name": "Два прохода", "cols": 6, "rows": 9, "minimum": 15, "budget": 23, "balls": [40, 13, 15, 4], "holes": [3, 43, 27, 45], "walls": [23, 36, 17, 46, 12, 47, 31, 49], "charged": 1, "cracks": [22], "gate": {"cell": 8, "switchCell": 2}, "revision": 2, "rewards": [{"kind": "stop", "cell": 19, "minimum": 12}, {"kind": "break", "cell": 31, "ball": 1, "minimum": 14}, {"kind": "pass", "cell": 8, "minimum": 13}]}, {"name": "Удержи дверь", "cols": 6, "rows": 9, "minimum": 15, "budget": 23, "balls": [50, 19, 1, 27], "holes": [29, 39, 40, 18], "walls": [36, 4, 2, 16, 31, 12, 20], "stops": [0], "gate": {"cell": 7, "switchCell": 14}, "token": 30, "tokenMinimum": 15, "revision": 2, "rewards": [{"kind": "stop", "cell": 28, "minimum": 13}, {"kind": "break", "cell": 2, "ball": 1, "minimum": 11}, {"kind": "pass", "cell": 7, "minimum": 11}]}, {"name": "Длинная дуга", "cols": 6, "rows": 9, "minimum": 16, "budget": 24, "balls": [15, 46, 33, 53], "holes": [52, 43, 19, 25], "walls": [17, 45, 27, 9, 10, 37, 18, 35, 14, 26], "charged": 3, "cracks": [34], "stops": [22], "token": 29, "tokenMinimum": 17, "revision": 2, "rewards": [{"kind": "stop", "cell": 42, "minimum": 15}, {"kind": "break", "cell": 27, "ball": 3, "minimum": 14}, {"kind": "pass", "cell": 26, "minimum": 13}]}, {"name": "Маршрут через центр", "cols": 6, "rows": 10, "minimum": 16, "budget": 24, "balls": [17, 52, 19, 33], "holes": [48, 6, 4, 3], "walls": [40, 55, 7, 36, 47, 32, 35, 16, 27], "charged": 2, "cracks": [14], "stops": [23], "gate": {"cell": 31, "switchCell": 30}, "revision": 2, "rewards": [{"kind": "stop", "cell": 22, "minimum": 16}, {"kind": "break", "cell": 16, "ball": 2, "minimum": 15}, {"kind": "pass", "cell": 31, "minimum": 13}]}, {"name": "Две стороны", "cols": 6, "rows": 10, "minimum": 17, "budget": 25, "balls": [59, 39, 17, 24], "holes": [48, 37, 33, 8], "walls": [27, 57, 56, 25, 29, 0, 53, 16, 46, 49, 43], "stops": [42], "gate": {"cell": 38, "switchCell": 40}, "token": 36, "tokenMinimum": 17, "revision": 2, "rewards": [{"kind": "stop", "cell": 20, "minimum": 14}, {"kind": "break", "cell": 25, "ball": 1, "minimum": 15}, {"kind": "pass", "cell": 38, "minimum": 16}]}, {"name": "За дальним углом", "cols": 6, "rows": 10, "minimum": 17, "budget": 25, "balls": [11, 22, 49, 19], "holes": [44, 47, 46, 28], "walls": [10, 50, 0, 38, 33, 43, 37, 24, 54, 59], "charged": 2, "cracks": [41], "gate": {"cell": 26, "switchCell": 29}, "revision": 2, "rewards": [{"kind": "stop", "cell": 20, "minimum": 15}, {"kind": "break", "cell": 43, "ball": 2, "minimum": 14}, {"kind": "pass", "cell": 59, "minimum": 16}]}, {"name": "Заряд у прохода", "cols": 7, "rows": 11, "minimum": 18, "budget": 26, "balls": [57, 27, 50, 22], "holes": [54, 37, 14, 39], "walls": [19, 26, 9, 51, 66, 31, 6, 42, 12, 70, 74], "charged": 1, "cracks": [8], "stops": [61], "gate": {"cell": 43, "switchCell": 21}, "token": 5, "tokenMinimum": 19, "revision": 2, "rewards": [{"kind": "stop", "cell": 18, "minimum": 15}, {"kind": "break", "cell": 26, "ball": 1, "minimum": 17}, {"kind": "pass", "cell": 43, "minimum": 16}]}, {"name": "Дальняя остановка", "cols": 7, "rows": 11, "minimum": 18, "budget": 26, "balls": [69, 34, 25, 42], "holes": [71, 27, 43, 50], "walls": [29, 33, 58, 63, 56, 23, 74, 21], "charged": 2, "cracks": [37], "stops": [31], "token": 65, "tokenMinimum": 18, "revision": 2, "rewards": [{"kind": "stop", "cell": 54, "minimum": 10}, {"kind": "break", "cell": 56, "ball": 2, "minimum": 12}, {"kind": "pass", "cell": 56, "minimum": 11}]}, {"name": "Связанные маршруты", "cols": 7, "rows": 11, "minimum": 19, "budget": 27, "balls": [56, 43, 29, 42], "holes": [44, 70, 8, 38], "walls": [28, 48, 1, 14, 20, 60, 52, 49, 47, 32, 41, 50], "charged": 2, "cracks": [12], "stops": [54], "gate": {"cell": 36, "switchCell": 40}, "revision": 2, "rewards": [{"kind": "stop", "cell": 17, "minimum": 18}, {"kind": "break", "cell": 49, "ball": 2, "minimum": 19}, {"kind": "pass", "cell": 36, "minimum": 16}]}, {"name": "Неоновый витраж", "cols": 7, "rows": 12, "minimum": 19, "budget": 27, "balls": [44, 8, 57, 52], "holes": [29, 70, 11, 53], "walls": [77, 59, 49, 24, 61, 35, 21, 63, 46, 74, 2, 7, 45, 55], "charged": 3, "cracks": [54], "stops": [66], "gate": {"cell": 71, "switchCell": 75}, "token": 0, "tokenMinimum": 20, "revision": 2, "rewards": [{"kind": "stop", "cell": 50, "minimum": 19}, {"kind": "break", "cell": 46, "ball": 3, "minimum": 18}, {"kind": "pass", "cell": 71, "minimum": 10}]}, {"name": "Смена маршрута", "cols": 7, "rows": 12, "minimum": 20, "budget": 28, "balls": [23, 14, 24, 1], "holes": [43, 66, 18, 7], "walls": [61, 3, 45, 4, 79, 30, 41, 49, 22, 20, 17], "charged": 1, "cracks": [19], "stops": [55], "gate": {"cell": 25, "switchCell": 47}, "revision": 2, "rewards": [{"kind": "stop", "cell": 9, "minimum": 19}, {"kind": "break", "cell": 17, "ball": 1, "minimum": 11}, {"kind": "pass", "cell": 25, "minimum": 17}]}, {"name": "Последний проход", "cols": 7, "rows": 12, "minimum": 21, "budget": 29, "balls": [4, 46, 36, 41], "holes": [25, 11, 63, 64], "walls": [43, 14, 32, 42, 58, 15, 34, 33, 61, 39, 80, 27, 48, 23, 2, 49], "charged": 1, "cracks": [5], "stops": [52], "gate": {"cell": 45, "switchCell": 40}, "token": 47, "tokenMinimum": 21, "revision": 2, "rewards": [{"kind": "stop", "cell": 51, "minimum": 19}, {"kind": "break", "cell": 32, "ball": 1, "minimum": 19}, {"kind": "pass", "cell": 58, "minimum": 18}]}, {"name": "Последний трек", "cols": 7, "rows": 12, "minimum": 22, "budget": 30, "balls": [35, 61, 32, 0], "holes": [4, 63, 75, 20], "walls": [82, 16, 8, 52, 30, 29, 77, 21, 27, 59, 67, 50, 36, 26], "charged": 3, "cracks": [57], "stops": [41], "gate": {"cell": 45, "switchCell": 37}, "token": 6, "tokenMinimum": 23, "revision": 2, "rewards": [{"kind": "stop", "cell": 42, "minimum": 14}, {"kind": "break", "cell": 36, "ball": 3, "minimum": 19}, {"kind": "pass", "cell": 29, "minimum": 15}]}];
+const metroLevels=[{"name": "Первый свайп", "cols": 4, "rows": 4, "balls": [6], "holes": [4], "walls": [], "minimum": 1, "practice": true, "budget": 11, "revision": 2, "rewards": [], "nameEn": "First Swipe"}, {"name": "За угол", "cols": 4, "rows": 4, "balls": [10], "holes": [0], "walls": [], "minimum": 2, "practice": true, "budget": 12, "revision": 3, "rewards": [], "nameEn": "Around the Corner"}, {"name": "Упор", "cols": 4, "rows": 4, "balls": [13], "holes": [7], "walls": [1], "minimum": 2, "practice": true, "budget": 12, "revision": 3, "rewards": [], "nameEn": "The Bumper"}, {"name": "Две лунки", "cols": 4, "rows": 4, "balls": [0, 15], "holes": [3, 12], "walls": [], "minimum": 2, "practice": true, "budget": 12, "revision": 3, "rewards": [], "nameEn": "Two Pockets"}, {"name": "В разные стороны", "cols": 4, "rows": 4, "balls": [13, 14], "holes": [0, 3], "walls": [], "minimum": 3, "practice": true, "budget": 13, "revision": 3, "rewards": [], "nameEn": "Opposite Directions"}, {"name": "На соседнюю линию", "cols": 4, "rows": 4, "minimum": 3, "budget": 13, "balls": [12, 5], "holes": [6, 15], "walls": [], "practice": true, "revision": 2, "rewards": [], "nameEn": "Change Lanes"}, {"name": "По краю", "cols": 4, "rows": 5, "minimum": 3, "budget": 13, "balls": [0, 6], "holes": [15, 17], "walls": [], "practice": true, "revision": 3, "rewards": [], "nameEn": "Along the Edge"}, {"name": "В очередь", "cols": 4, "rows": 5, "minimum": 4, "budget": 14, "balls": [4, 6], "holes": [19, 16], "walls": [12], "practice": true, "revision": 2, "rewards": [], "nameEn": "Line Up"}, {"name": "Через середину", "cols": 4, "rows": 5, "minimum": 4, "budget": 14, "balls": [4, 16], "holes": [6, 7], "walls": [5], "revision": 3, "rewards": [], "nameEn": "Through the Middle"}, {"name": "Стоп-плитка", "cols": 4, "rows": 5, "minimum": 4, "budget": 14, "balls": [10, 12], "holes": [5, 7], "walls": [], "intro": "stop", "stops": [6], "guide": "up", "revision": 2, "rewards": [], "nameEn": "Stop Tile"}, {"name": "Остановка у лунки", "cols": 4, "rows": 5, "minimum": 4, "budget": 14, "balls": [12, 13], "holes": [0, 8], "walls": [10], "stops": [14], "revision": 2, "rewards": [], "nameEn": "Stop by the Pocket"}, {"name": "Два поворота", "cols": 4, "rows": 5, "minimum": 5, "budget": 15, "balls": [2, 16], "holes": [13, 15], "walls": [12], "revision": 3, "rewards": [], "nameEn": "Two Turns"}, {"name": "Объезд", "cols": 4, "rows": 5, "minimum": 5, "budget": 15, "balls": [18, 10], "holes": [16, 5], "walls": [15], "stops": [2], "revision": 2, "rewards": [], "nameEn": "The Detour"}, {"name": "Шар с зарядом", "cols": 4, "rows": 6, "minimum": 4, "budget": 14, "balls": [15, 12], "holes": [22, 19], "walls": [16], "intro": "break", "charged": 0, "cracks": [13], "guide": "left", "revision": 3, "rewards": [], "nameEn": "Charged Ball"}, {"name": "За блоком", "cols": 4, "rows": 6, "minimum": 5, "budget": 15, "balls": [8, 23], "holes": [11, 2], "walls": [4], "charged": 1, "cracks": [22], "revision": 2, "rewards": [], "nameEn": "Behind the Block"}, {"name": "Притормози", "cols": 4, "rows": 6, "minimum": 6, "budget": 16, "balls": [3, 21], "holes": [20, 19], "walls": [8, 15], "stops": [17], "revision": 2, "rewards": [], "nameEn": "Slow Down"}, {"name": "Открой дверь", "cols": 4, "rows": 6, "minimum": 5, "budget": 15, "balls": [4, 14], "holes": [19, 7], "walls": [12], "intro": "gate", "gate": {"cell": 10, "switchCell": 8}, "guide": "down", "revision": 2, "rewards": [], "nameEn": "Open the Gate"}, {"name": "Шар на кнопке", "cols": 4, "rows": 6, "minimum": 6, "budget": 16, "balls": [16, 6], "holes": [0, 17], "walls": [14, 8], "gate": {"cell": 13, "switchCell": 20}, "revision": 2, "rewards": [], "nameEn": "On the Switch"}, {"name": "Три цвета", "cols": 5, "rows": 6, "minimum": 6, "budget": 15, "balls": [20, 23, 28], "holes": [25, 7, 9], "walls": [18, 0, 15], "revision": 2, "rewards": [], "nameEn": "Three Colors"}, {"name": "Держи порядок", "cols": 5, "rows": 6, "minimum": 7, "budget": 16, "balls": [24, 28, 26], "holes": [13, 10, 23], "walls": [27, 16, 2, 6], "stops": [20], "revision": 2, "rewards": [], "nameEn": "Mind the Order"}, {"name": "Расчисти путь", "cols": 5, "rows": 6, "minimum": 7, "budget": 16, "balls": [23, 11, 12], "holes": [19, 14, 13], "walls": [4, 6], "charged": 2, "cracks": [7], "revision": 2, "rewards": [], "nameEn": "Clear the Path"}, {"name": "Через дверь", "cols": 5, "rows": 6, "minimum": 8, "budget": 17, "balls": [25, 0, 1], "holes": [16, 17, 28], "walls": [12, 4, 21, 5], "gate": {"cell": 8, "switchCell": 3}, "revision": 2, "rewards": [], "nameEn": "Through the Gate"}, {"name": "Первый диско-жетон", "cols": 5, "rows": 6, "minimum": 7, "budget": 16, "balls": [19, 18], "holes": [11, 29], "walls": [16, 0, 14], "intro": "token", "token": 24, "tokenMinimum": 7, "guide": "down", "revision": 2, "rewards": [], "nameEn": "First Disco Token"}, {"name": "Жетон у остановки", "cols": 5, "rows": 7, "minimum": 8, "budget": 17, "balls": [11, 9, 15], "holes": [8, 26, 1], "walls": [20, 2, 12, 6], "stops": [29], "token": 24, "tokenMinimum": 8, "revision": 2, "rewards": [], "nameEn": "Token by the Stop"}, {"name": "У двери", "cols": 5, "rows": 7, "minimum": 9, "budget": 18, "balls": [23, 2, 34], "holes": [26, 25, 16], "walls": [24, 30], "gate": {"cell": 28, "switchCell": 19}, "revision": 2, "rewards": [], "nameEn": "At the Gate"}, {"name": "Жетон за углом", "cols": 5, "rows": 7, "minimum": 9, "budget": 18, "balls": [0, 26, 30], "holes": [20, 5, 11], "walls": [25, 32, 22, 23], "charged": 0, "cracks": [16], "token": 31, "tokenMinimum": 9, "revision": 2, "rewards": [], "nameEn": "Token Around the Corner"}, {"name": "Заряд и остановка", "cols": 5, "rows": 7, "minimum": 10, "budget": 19, "balls": [32, 21, 22], "holes": [28, 3, 5], "walls": [13, 24, 33, 20, 12], "charged": 0, "cracks": [16], "stops": [11], "revision": 2, "rewards": [], "nameEn": "Charge and Stop"}, {"name": "За открытой дверью", "cols": 5, "rows": 7, "minimum": 10, "budget": 19, "balls": [22, 23, 34], "holes": [2, 32, 3], "walls": [9, 0, 6, 12, 27], "gate": {"cell": 28, "switchCell": 24}, "token": 19, "tokenMinimum": 10, "revision": 2, "rewards": [], "nameEn": "Beyond the Gate"}, {"name": "До переключателя", "cols": 5, "rows": 7, "minimum": 10, "budget": 19, "balls": [0, 26, 34], "holes": [13, 25, 1], "walls": [29, 6, 27, 30, 23], "stops": [12], "gate": {"cell": 17, "switchCell": 5}, "revision": 2, "rewards": [], "nameEn": "To the Switch"}, {"name": "Жетон в проходе", "cols": 5, "rows": 7, "minimum": 11, "budget": 20, "balls": [7, 9, 14], "holes": [12, 13, 11], "walls": [1, 19, 10], "charged": 2, "cracks": [8], "stops": [2], "token": 3, "tokenMinimum": 11, "revision": 2, "rewards": [], "nameEn": "Token in the Passage"}, {"name": "Боковой проход", "cols": 5, "rows": 8, "minimum": 11, "budget": 20, "balls": [18, 9, 11], "holes": [38, 29, 12], "walls": [34, 3, 10, 7, 22, 28, 2], "charged": 0, "cracks": [35], "gate": {"cell": 16, "switchCell": 6}, "revision": 2, "rewards": [{"kind": "stop", "cell": 13, "minimum": 11}, {"kind": "break", "cell": 22, "ball": 0, "minimum": 5}, {"kind": "pass", "cell": 16, "minimum": 5}], "nameEn": "Side Passage"}, {"name": "После поворота", "cols": 5, "rows": 8, "minimum": 12, "budget": 21, "balls": [16, 29, 14], "holes": [19, 18, 35], "walls": [28, 34, 0, 31, 8, 7], "stops": [30], "gate": {"cell": 12, "switchCell": 1}, "revision": 2, "rewards": [{"kind": "stop", "cell": 25, "minimum": 10}, {"kind": "break", "cell": 28, "ball": 1, "minimum": 11}, {"kind": "pass", "cell": 12, "minimum": 9}], "nameEn": "After the Turn"}, {"name": "Через два упора", "cols": 5, "rows": 8, "minimum": 12, "budget": 21, "balls": [4, 14, 9], "holes": [6, 36, 17], "walls": [19, 18, 15], "charged": 2, "cracks": [3], "stops": [11], "revision": 2, "rewards": [{"kind": "stop", "cell": 8, "minimum": 6}, {"kind": "break", "cell": 15, "ball": 2, "minimum": 12}, {"kind": "pass", "cell": 19, "minimum": 8}], "nameEn": "Between Two Bumpers"}, {"name": "Жетон у двери", "cols": 5, "rows": 8, "minimum": 13, "budget": 21, "balls": [9, 23, 24], "holes": [13, 8, 25], "walls": [28, 20, 26, 35, 33, 6], "charged": 2, "cracks": [17], "gate": {"cell": 7, "switchCell": 22}, "token": 4, "tokenMinimum": 13, "revision": 2, "rewards": [{"kind": "stop", "cell": 34, "minimum": 12}, {"kind": "break", "cell": 20, "ball": 2, "minimum": 11}, {"kind": "pass", "cell": 6, "minimum": 11}], "nameEn": "Token by the Gate"}, {"name": "Четыре цвета", "cols": 5, "rows": 8, "minimum": 13, "budget": 21, "balls": [25, 18, 39, 7], "holes": [10, 12, 4, 33], "walls": [15, 36, 26, 6, 2, 34], "stops": [9], "revision": 2, "rewards": [{"kind": "stop", "cell": 14, "minimum": 12}, {"kind": "break", "cell": 34, "ball": 2, "minimum": 9}, {"kind": "pass", "cell": 36, "minimum": 11}], "nameEn": "Four Colors"}, {"name": "Стоп и разлом", "cols": 5, "rows": 8, "minimum": 14, "budget": 22, "balls": [18, 6, 17, 1], "holes": [7, 14, 33, 0], "walls": [10, 13, 23, 25, 4, 19, 38], "charged": 0, "cracks": [8], "stops": [20], "revision": 2, "rewards": [{"kind": "stop", "cell": 32, "minimum": 13}, {"kind": "break", "cell": 13, "ball": 0, "minimum": 11}, {"kind": "pass", "cell": 23, "minimum": 12}], "nameEn": "Stop and Break"}, {"name": "Дверь и объезд", "cols": 6, "rows": 9, "minimum": 14, "budget": 22, "balls": [21, 30, 52, 16], "holes": [11, 50, 32, 36], "walls": [1, 23, 31, 13, 6, 9, 5], "gate": {"cell": 20, "switchCell": 17}, "token": 14, "tokenMinimum": 15, "revision": 2, "rewards": [{"kind": "stop", "cell": 24, "minimum": 10}, {"kind": "break", "cell": 31, "ball": 1, "minimum": 9}, {"kind": "pass", "cell": 20, "minimum": 11}], "nameEn": "Gate and Detour"}, {"name": "Два прохода", "cols": 6, "rows": 9, "minimum": 15, "budget": 23, "balls": [40, 13, 15, 4], "holes": [3, 43, 27, 45], "walls": [23, 36, 17, 46, 12, 47, 31, 49], "charged": 1, "cracks": [22], "gate": {"cell": 8, "switchCell": 2}, "revision": 2, "rewards": [{"kind": "stop", "cell": 19, "minimum": 12}, {"kind": "break", "cell": 31, "ball": 1, "minimum": 14}, {"kind": "pass", "cell": 8, "minimum": 13}], "nameEn": "Two Passages"}, {"name": "Удержи дверь", "cols": 6, "rows": 9, "minimum": 15, "budget": 23, "balls": [50, 19, 1, 27], "holes": [29, 39, 40, 18], "walls": [36, 4, 2, 16, 31, 12, 20], "stops": [0], "gate": {"cell": 7, "switchCell": 14}, "token": 30, "tokenMinimum": 15, "revision": 2, "rewards": [{"kind": "stop", "cell": 28, "minimum": 13}, {"kind": "break", "cell": 2, "ball": 1, "minimum": 11}, {"kind": "pass", "cell": 7, "minimum": 11}], "nameEn": "Hold the Gate"}, {"name": "Длинная дуга", "cols": 6, "rows": 9, "minimum": 16, "budget": 24, "balls": [15, 46, 33, 53], "holes": [52, 43, 19, 25], "walls": [17, 45, 27, 9, 10, 37, 18, 35, 14, 26], "charged": 3, "cracks": [34], "stops": [22], "token": 29, "tokenMinimum": 17, "revision": 2, "rewards": [{"kind": "stop", "cell": 42, "minimum": 15}, {"kind": "break", "cell": 27, "ball": 3, "minimum": 14}, {"kind": "pass", "cell": 26, "minimum": 13}], "nameEn": "The Long Loop"}, {"name": "Маршрут через центр", "cols": 6, "rows": 10, "minimum": 16, "budget": 24, "balls": [17, 52, 19, 33], "holes": [48, 6, 4, 3], "walls": [40, 55, 7, 36, 47, 32, 35, 16, 27], "charged": 2, "cracks": [14], "stops": [23], "gate": {"cell": 31, "switchCell": 30}, "revision": 2, "rewards": [{"kind": "stop", "cell": 22, "minimum": 16}, {"kind": "break", "cell": 16, "ball": 2, "minimum": 15}, {"kind": "pass", "cell": 31, "minimum": 13}], "nameEn": "Across the Center"}, {"name": "Две стороны", "cols": 6, "rows": 10, "minimum": 17, "budget": 25, "balls": [59, 39, 17, 24], "holes": [48, 37, 33, 8], "walls": [27, 57, 56, 25, 29, 0, 53, 16, 46, 49, 43], "stops": [42], "gate": {"cell": 38, "switchCell": 40}, "token": 36, "tokenMinimum": 17, "revision": 2, "rewards": [{"kind": "stop", "cell": 20, "minimum": 14}, {"kind": "break", "cell": 25, "ball": 1, "minimum": 15}, {"kind": "pass", "cell": 38, "minimum": 16}], "nameEn": "Two Sides"}, {"name": "За дальним углом", "cols": 6, "rows": 10, "minimum": 17, "budget": 25, "balls": [11, 22, 49, 19], "holes": [44, 47, 46, 28], "walls": [10, 50, 0, 38, 33, 43, 37, 24, 54, 59], "charged": 2, "cracks": [41], "gate": {"cell": 26, "switchCell": 29}, "revision": 2, "rewards": [{"kind": "stop", "cell": 20, "minimum": 15}, {"kind": "break", "cell": 43, "ball": 2, "minimum": 14}, {"kind": "pass", "cell": 59, "minimum": 16}], "nameEn": "Beyond the Far Corner"}, {"name": "Заряд у прохода", "cols": 7, "rows": 11, "minimum": 18, "budget": 26, "balls": [57, 27, 50, 22], "holes": [54, 37, 14, 39], "walls": [19, 26, 9, 51, 66, 31, 6, 42, 12, 70, 74], "charged": 1, "cracks": [8], "stops": [61], "gate": {"cell": 43, "switchCell": 21}, "token": 5, "tokenMinimum": 19, "revision": 2, "rewards": [{"kind": "stop", "cell": 18, "minimum": 15}, {"kind": "break", "cell": 26, "ball": 1, "minimum": 17}, {"kind": "pass", "cell": 43, "minimum": 16}], "nameEn": "Charge by the Passage"}, {"name": "Дальняя остановка", "cols": 7, "rows": 11, "minimum": 18, "budget": 26, "balls": [69, 34, 25, 42], "holes": [71, 27, 43, 50], "walls": [29, 33, 58, 63, 56, 23, 74, 21], "charged": 2, "cracks": [37], "stops": [31], "token": 65, "tokenMinimum": 18, "revision": 2, "rewards": [{"kind": "stop", "cell": 54, "minimum": 10}, {"kind": "break", "cell": 56, "ball": 2, "minimum": 12}, {"kind": "pass", "cell": 56, "minimum": 11}], "nameEn": "The Far Stop"}, {"name": "Связанные маршруты", "cols": 7, "rows": 11, "minimum": 19, "budget": 27, "balls": [56, 43, 29, 42], "holes": [44, 70, 8, 38], "walls": [28, 48, 1, 14, 20, 60, 52, 49, 47, 32, 41, 50], "charged": 2, "cracks": [12], "stops": [54], "gate": {"cell": 36, "switchCell": 40}, "revision": 2, "rewards": [{"kind": "stop", "cell": 17, "minimum": 18}, {"kind": "break", "cell": 49, "ball": 2, "minimum": 19}, {"kind": "pass", "cell": 36, "minimum": 16}], "nameEn": "Linked Routes"}, {"name": "Неоновый витраж", "cols": 7, "rows": 12, "minimum": 19, "budget": 27, "balls": [44, 8, 57, 52], "holes": [29, 70, 11, 53], "walls": [77, 59, 49, 24, 61, 35, 21, 63, 46, 74, 2, 7, 45, 55], "charged": 3, "cracks": [54], "stops": [66], "gate": {"cell": 71, "switchCell": 75}, "token": 0, "tokenMinimum": 20, "revision": 2, "rewards": [{"kind": "stop", "cell": 50, "minimum": 19}, {"kind": "break", "cell": 46, "ball": 3, "minimum": 18}, {"kind": "pass", "cell": 71, "minimum": 10}], "nameEn": "Neon Mosaic"}, {"name": "Смена маршрута", "cols": 7, "rows": 12, "minimum": 20, "budget": 28, "balls": [23, 14, 24, 1], "holes": [43, 66, 18, 7], "walls": [61, 3, 45, 4, 79, 30, 41, 49, 22, 20, 17], "charged": 1, "cracks": [19], "stops": [55], "gate": {"cell": 25, "switchCell": 47}, "revision": 2, "rewards": [{"kind": "stop", "cell": 9, "minimum": 19}, {"kind": "break", "cell": 17, "ball": 1, "minimum": 11}, {"kind": "pass", "cell": 25, "minimum": 17}], "nameEn": "Change of Route"}, {"name": "Последний проход", "cols": 7, "rows": 12, "minimum": 21, "budget": 29, "balls": [4, 46, 36, 41], "holes": [25, 11, 63, 64], "walls": [43, 14, 32, 42, 58, 15, 34, 33, 61, 39, 80, 27, 48, 23, 2, 49], "charged": 1, "cracks": [5], "stops": [52], "gate": {"cell": 45, "switchCell": 40}, "token": 47, "tokenMinimum": 21, "revision": 2, "rewards": [{"kind": "stop", "cell": 51, "minimum": 19}, {"kind": "break", "cell": 32, "ball": 1, "minimum": 19}, {"kind": "pass", "cell": 58, "minimum": 18}], "nameEn": "The Last Passage"}, {"name": "Последний трек", "cols": 7, "rows": 12, "minimum": 22, "budget": 30, "balls": [35, 61, 32, 0], "holes": [4, 63, 75, 20], "walls": [82, 16, 8, 52, 30, 29, 77, 21, 27, 59, 67, 50, 36, 26], "charged": 3, "cracks": [57], "stops": [41], "gate": {"cell": 45, "switchCell": 37}, "token": 6, "tokenMinimum": 23, "revision": 2, "rewards": [{"kind": "stop", "cell": 42, "minimum": 14}, {"kind": "break", "cell": 36, "ball": 3, "minimum": 19}, {"kind": "pass", "cell": 29, "minimum": 15}], "nameEn": "The Final Track"}];
 const keys={ArrowUp:'up',ArrowRight:'right',ArrowDown:'down',ArrowLeft:'left',w:'up',d:'right',s:'down',a:'left'};
 const layout=document.querySelector('.metro-app');
 const orientationPicker=document.querySelector('.orientation-picker');
@@ -1116,7 +1135,7 @@ const campaignProgress=document.querySelector('.campaign-progress');
 const tutorial=document.querySelector('.swipe-tutorial');
 const tutorialTitle=tutorial.querySelector('.swipe-instruction');
 const tutorialDetail=tutorial.querySelector('.swipe-explanation');
-const tutorialArrows={up:'вверх',right:'вправо',down:'вниз',left:'влево'};
+const languagePicker=document.querySelector('.language-picker');
 const mechanicTip=document.querySelector('.mechanic-tip');
 const mechanicCue=mechanicTip.querySelector('.mechanic-cue');
 const arrowGlyphs={up:'↑',right:'→',down:'↓',left:'←'};
@@ -1128,13 +1147,153 @@ const rewardSpheres=rewardMeter.querySelectorAll('i');
 const rewardCount=rewardMeter.querySelector('.reward-count');
 const rewardCost=5;
 const ratingFrom=13, tokensFrom=23;
-const rewardNames={stop:'Стоп-плитка',break:'Шар с зарядом',pass:'Открытый проход'};
-const mechanicNotes={
- stop:{title:'Стоп-плитка',detail:'Первый шар остановится здесь. Плитка погаснет, и шар сможет поехать дальше.',color:'#ffd582'},
- break:{title:'Шар с зарядом',detail:'Шар с молнией разбивает треснувший блок. Проход освободится к следующему свайпу.',color:'#ffd3a1'},
- gate:{title:'Плитка открывает дверь',detail:'Останови шар на плитке. Дверь будет открыта на следующем свайпе, пока шары едут.',color:'#a5f5da'},
- token:{title:'Диско-жетон',detail:'Подбери его шаром и заверши уровень. Пять жетонов дают бонус на следующем уровне.',color:'#ffb9e2'},
+const interfaceLabels={
+ "ru": {
+  "gameScreen": "Игровой экран Redmi A5. Свайп или стрелка двигает все шары в выбранную сторону. Для паузы удерживай палец на поле или нажми Escape.",
+  "mainMenu": "Главное меню",
+  "continue": "Продолжить",
+  "newGame": "Новая игра",
+  "chooseLevel": "Выбрать уровень",
+  "level": "Уровень",
+  "movesLeft": "Ходов осталось",
+  "tokenBonus": "Бонус за диско-жетоны",
+  "discoTokens": "Диско-жетоны",
+  "chooseBonus": "Выбери бонус за пять жетонов",
+  "stop": "Стоп",
+  "charge": "Заряд",
+  "passage": "Проход",
+  "stopLabel": "Стоп — добавить стоп-плитку",
+  "chargeLabel": "Заряд — добавить шар с зарядом и треснувший блок",
+  "passageLabel": "Проход — открыть проход на поле",
+  "tutorial": "Обучение",
+  "newRule": "Новое правило",
+  "levels": "Уровни",
+  "levelSelect": "Выбор уровня",
+  "levelRange": "Диапазон уровней",
+  "pause": "Пауза",
+  "undo": "Отменить ход (PRO)",
+  "restart": "Начать заново",
+  "routeEfficiency": "Эффективность маршрута",
+  "efficiency": "Эффективность",
+  "moves": "Ходы",
+  "minimum": "Минимум",
+  "tokenCollected": "Диско-жетон собран",
+  "bonusUsed": "Пройдено с бонусом",
+  "playAgain": "Сыграть ещё раз",
+  "noMoves": "Ходы закончились",
+  "phoneOrientation": "Ориентация телефона",
+  "phoneScreen": "Экран Redmi A5",
+  "screenMode": "Режим экрана",
+  "portrait": "Вертикально",
+  "landscape": "Горизонтально",
+  "language": "Язык игры",
+  "nextLevel": "Следующий уровень",
+  "backToLevels": "К уровням"
+ },
+ "en": {
+  "gameScreen": "Redmi A5 game screen. Swipe or press an arrow key to move all balls in that direction. Touch and hold the board or press Escape to pause.",
+  "mainMenu": "Main Menu",
+  "continue": "Continue",
+  "newGame": "New Game",
+  "chooseLevel": "Select Level",
+  "level": "Level",
+  "movesLeft": "Moves Left",
+  "tokenBonus": "Disco Token Bonus",
+  "discoTokens": "Disco Tokens",
+  "chooseBonus": "Choose a bonus for five tokens",
+  "stop": "Stop",
+  "charge": "Charge",
+  "passage": "Passage",
+  "stopLabel": "Add a stop tile",
+  "chargeLabel": "Add a charged ball and a cracked block",
+  "passageLabel": "Open a passage on the board",
+  "tutorial": "Tutorial",
+  "newRule": "New Rule",
+  "levels": "Levels",
+  "levelSelect": "Level Selection",
+  "levelRange": "Level Range",
+  "pause": "Paused",
+  "undo": "Undo Move (PRO)",
+  "restart": "Restart",
+  "routeEfficiency": "Route Efficiency",
+  "efficiency": "Efficiency",
+  "moves": "Moves",
+  "minimum": "Minimum",
+  "tokenCollected": "Disco token collected",
+  "bonusUsed": "Completed with a bonus",
+  "playAgain": "Play Again",
+  "noMoves": "Out of Moves",
+  "phoneOrientation": "Phone Orientation",
+  "phoneScreen": "Redmi A5 Screen",
+  "screenMode": "Screen Mode",
+  "portrait": "Portrait",
+  "landscape": "Landscape",
+  "language": "Game Language",
+  "nextLevel": "Next Level",
+  "backToLevels": "Back to Levels"
+ }
 };
+
+const languageContent={
+ ru:{
+  directions:{up:'вверх',right:'вправо',down:'вниз',left:'влево'},
+  swipe:direction=>`Свайпни ${direction}`,
+  nextInstruction:'Шары останавливаются в лунках со своим знаком.',
+  firstInstruction:'Свайп двигает шар до края или лунки.',
+  restartInstruction:'Выбери перезапуск в меню паузы.',
+  rewards:{stop:'Стоп-плитка',break:'Шар с зарядом',pass:'Открытый проход'},
+  mechanics:{
+   stop:{title:'Стоп-плитка',detail:'Первый шар остановится здесь. Плитка погаснет, и шар сможет поехать дальше.'},
+   break:{title:'Шар с зарядом',detail:'Шар с молнией разбивает треснувший блок. Проход освободится к следующему свайпу.'},
+   gate:{title:'Плитка открывает дверь',detail:'Останови шар на плитке. Дверь будет открыта на следующем свайпе, пока шары едут.'},
+   token:{title:'Диско-жетон',detail:'Подбери его шаром и заверши уровень. Пять жетонов дают бонус на следующем уровне.'},
+  },
+  effect:{stop:'Стоп-плитка сработала.',break:'Блок разбит.',gate:'Дверь переключилась.',token:'Диско-жетон собран.'},
+  ratio:(count,total)=>`${count} из ${total}`,
+  campaign:(count,total)=>`Пройдено ${count} из ${total}`,
+  levelLabel:(number,name)=>`Уровень ${number}, ${name}`,
+  best:(rating,assisted)=>`лучший результат ${rating} из 3${assisted?' с бонусом':''}`,
+  ratings:['','В следующий раз получится лучше!','Отличная работа!','Кратчайший путь. Поздравляю!'],
+  simpleWin:'Отлично!',
+  simpleSummary:'Можно переходить к следующему уровню.',
+  ratingSummary:(rating,score,moves,minimum)=>`Результат ${rating} из 3. Эффективность ${score}%. Ходов ${moves}, минимум ${minimum}.`,
+  still:'Шары остались на месте.',
+  remaining:moves=>`Осталось ходов ${moves}.`,
+  rewardSelected:name=>`Выбран бонус «${name}».`,
+ },
+ en:{
+  directions:{up:'up',right:'right',down:'down',left:'left'},
+  swipe:direction=>`Swipe ${direction}`,
+  nextInstruction:'Each ball stops in the pocket with its matching symbol.',
+  firstInstruction:'Swipe to roll the ball to the edge or into its pocket.',
+  restartInstruction:'Choose Restart from the pause menu.',
+  rewards:{stop:'Stop Tile',break:'Charged Ball',pass:'Open Passage'},
+  mechanics:{
+   stop:{title:'Stop Tile',detail:'The first ball stops here. The tile then switches off so the ball can keep rolling on the next swipe.'},
+   break:{title:'Charged Ball',detail:'The ball marked with a lightning bolt breaks cracked blocks. The path is clear on the next swipe.'},
+   gate:{title:'Gate Switch',detail:'Stop a ball on the switch. The gate stays open while the balls roll on your next swipe.'},
+   token:{title:'Disco Token',detail:'Roll over the token and finish the level. Collect five tokens to unlock a bonus on the next level.'},
+  },
+  effect:{stop:'The stop tile activated.',break:'The block broke.',gate:'The gate switched.',token:'Disco token collected.'},
+  ratio:(count,total)=>`${count} of ${total}`,
+  campaign:(count,total)=>`Completed ${count} of ${total}`,
+  levelLabel:(number,name)=>`Level ${number}, ${name}`,
+  best:(rating,assisted)=>`best rating ${rating} of 3${assisted?' with a bonus':''}`,
+  ratings:['','Keep going!','Great work!','You found the shortest route!'],
+  simpleWin:'Well done!',
+  simpleSummary:'You can move on to the next level.',
+  ratingSummary:(rating,score,moves,minimum)=>`Rating ${rating} of 3. Efficiency ${score}%. Moves ${moves}, minimum ${minimum}.`,
+  still:'The balls stayed in place.',
+  remaining:moves=>`Moves left ${moves}.`,
+  rewardSelected:name=>`${name} is ready.`,
+ },
+};
+const mechanicColors={stop:'#ffd582',break:'#ffd3a1',gate:'#a5f5da',token:'#ffb9e2'};
+const languageStorage='roll-slide-language';
+let language='ru';
+try{if(localStorage.getItem(languageStorage)==='en')language='en';}catch{}
+let words=languageContent[language];
+let labels=interfaceLabels[language];
 const result=document.querySelector('.result-dialog');
 const ratingBalls=result.querySelector('.rating-balls');
 const slots=[];
@@ -1164,7 +1323,7 @@ try{
     const oldBonusBests=saved.rewardBests?.[n];
     if(finished.has(n)||Number.isInteger(moves)||tokens.has(n)||oldBonusBests)progress.archivedResults.push({level:n+1,revision:storedRevision(n),completed:finished.has(n),bestMoves:Number.isInteger(moves)?moves:null,token:tokens.has(n),rewardBests:oldBonusBests});
     if(tokens.has(n))migratedTokens++;
-    if(Object.hasOwn(rewardNames,saved.activeRewards?.[n]))returnedTokens+=rewardCost;
+    if(Object.hasOwn(words.rewards,saved.activeRewards?.[n]))returnedTokens+=rewardCost;
     continue;
    }
    if(finished.has(n))progress.finished.push(n);
@@ -1347,7 +1506,7 @@ function drawMechanics(state,breakCell,shattered){
  if(level.openPassage!==undefined)at(...screenXY(level.openPassage),()=>gateTile(ctx,0,0,true));
  if(level.token!==undefined&&!state.token)at(...screenXY(level.token),()=>discoToken(ctx,0,0));
  if(level.intro&&!introCleared){
-  const color=mechanicNotes[level.intro].color;
+  const color=mechanicColors[level.intro];
   for(const cell of mechanicCells())if(cell!==breakCell||!shattered)at(...screenXY(cell),()=>mechanicHalo(ctx,0,0,color));
  }
  if(level.rewardKind&&!movesUsed){
@@ -1405,12 +1564,12 @@ function renderRewardHud(){
  const count=Math.min(rewardCost,tokenBalance()+Number(picked));
  const choosing=canRedeem();
  rewardActive.hidden=!level.rewardKind;
- rewardActive.textContent=level.rewardKind?rewardNames[level.rewardKind]:'';
+ rewardActive.textContent=level.rewardKind?words.rewards[level.rewardKind]:'';
  rewardChoices.hidden=!choosing;
  rewardMeter.hidden=choosing;
  rewardCount.textContent=`${count}/${rewardCost}`;
  rewardMeter.setAttribute('aria-valuenow',count);
- rewardMeter.setAttribute('aria-valuetext',`${count} из ${rewardCost}`);
+ rewardMeter.setAttribute('aria-valuetext',words.ratio(count,rewardCost));
  for(const [i,orb] of rewardSpheres.entries()){
   orb.classList.toggle('is-filled',i<count);
   orb.classList.toggle('is-earned',picked&&i===count-1);
@@ -1427,7 +1586,7 @@ function starCount(moves,minimum){
  return moves-minimum<=Math.max(1,Math.floor(minimum/3))?2:1;
 }
 function renderLevels(){
- campaignProgress.textContent=`Пройдено ${progress.finished.length} из ${metroLevels.length}`;
+ campaignProgress.textContent=words.campaign(progress.finished.length,metroLevels.length);
  for(const button of chapterSelect.children)button.setAttribute('aria-pressed',String(Number(button.dataset.page)===levelPage));
  for(const child of nav.children){
   const n=Number(child.dataset.level),entry=metroLevels[n],best=progress.bestMoves[n];
@@ -1440,7 +1599,10 @@ function renderLevels(){
   const hasToken=progress.tokens.includes(n);
   child.hidden=Math.floor(n/10)!==levelPage;
   child.setAttribute('aria-current',String(n===index));
-  child.setAttribute('aria-label',`Уровень ${n+1}, ${entry.name}${rating?`, лучший результат ${rating} из 3${assistedRating>baseRating?' с бонусом':''}`:''}${hasToken?', диско-жетон собран':''}`);
+  const description=[words.levelLabel(n+1,language==='en'?entry.nameEn:entry.name)];
+  if(rating)description.push(words.best(rating,assistedRating>baseRating));
+  if(hasToken)description.push(labels.tokenCollected);
+  child.setAttribute('aria-label',description.join(', '));
   child.classList.toggle('done',progress.finished.includes(n));
   child.classList.toggle('has-token',hasToken);
   for(const [i,indicator] of [...child.querySelectorAll('.level-rating i')].entries())indicator.classList.toggle('active',i<rating);
@@ -1463,7 +1625,7 @@ function nextTutorialMove(){
 }
 function prepareMechanicTip(){
  if(!level.intro)return;
- const {title,detail}=mechanicNotes[level.intro];
+ const {title,detail}=words.mechanics[level.intro];
  mechanicTip.querySelector('strong').textContent=title;
  mechanicTip.querySelector('.mechanic-explanation').textContent=detail;
  const icon=mechanicTip.querySelector('canvas').getContext('2d');icon.clearRect(0,0,96,96);
@@ -1479,13 +1641,13 @@ function renderTutorial(){
  mechanicTip.hidden=screen!=='game'||!level.intro||introCleared;
  const cue=!mechanicTip.hidden&&!movesUsed&&displayDirection(level.guide);
  mechanicCue.hidden=!cue;
- mechanicCue.textContent=cue?`${arrowGlyphs[cue]}  Свайпни ${tutorialArrows[cue]}`:'';
+ mechanicCue.textContent=cue?`${arrowGlyphs[cue]}  ${words.swipe(words.directions[cue])}`:'';
  tutorial.hidden=screen!=='game'||index>1||completed(boardState.balls);
  if(tutorial.hidden)return;
  const direction=displayDirection(nextTutorialMove());
  tutorial.dataset.direction=direction??'restart';
- tutorialTitle.textContent=direction?`Свайпни ${tutorialArrows[direction]}`:'Начни заново';
- tutorialDetail.textContent=direction?(movesUsed?'Шары останавливаются в лунках со своим знаком.':'Свайп двигает шар до края или лунки.'):'Выбери перезапуск в меню паузы.';
+ tutorialTitle.textContent=direction?words.swipe(words.directions[direction]):labels.restart;
+ tutorialDetail.textContent=direction?(movesUsed?words.nextInstruction:words.firstInstruction):words.restartInstruction;
 }
 function setScreen(name,focus=true){
  if(name!=='win'){cancelAnimationFrame(ratingAnimation);ratingAnimation=0;}
@@ -1506,24 +1668,27 @@ function setScreen(name,focus=true){
  else if(name==='home')(progress.started?continueButton:newGameButton).focus({preventScroll:true});
  else modals.find(m=>m.dataset.screen===name)?.querySelector('button:not(:disabled)')?.focus({preventScroll:true});
 }
-function renderResult(moves){
+function renderResult(moves,animateRating=true){
  const simple=index+1<ratingFrom;
  const score=Math.round(100*level.minimum/moves);
  const earned=starCount(moves,level.minimum);
- const message=['','В следующий раз получится лучше!','Отличная работа!','Кратчайший путь. Поздравляю!'][earned];
  result.dataset.rating=earned;
  result.dataset.simple=String(simple);
- result.querySelector('#result-title').textContent=simple?'Отлично!':message;
+ result.querySelector('#result-title').textContent=simple?words.simpleWin:words.ratings[earned];
+ result.querySelector('[data-cmd="next"]').textContent=index<metroLevels.length-1?labels.nextLevel:labels.backToLevels;
  result.querySelector('.rating-moves').textContent=moves;
  result.querySelector('.rating-minimum').textContent=level.minimum;
  result.querySelector('.token-result').hidden=!boardState.token;
  result.querySelector('.reward-result').hidden=!level.rewardKind;
- document.querySelector('#result-summary').textContent=simple?'Можно переходить к следующему уровню.':`Результат ${earned} из 3. Эффективность ${score}%. Ходов ${moves}, минимум ${level.minimum}.${boardState.token?' Диско-жетон собран.':''}${level.rewardKind?' Пройдено с бонусом.':''}`;
+ const summary=[words.ratingSummary(earned,score,moves,level.minimum)];
+ if(boardState.token)summary.push(labels.tokenCollected+'.');
+ if(level.rewardKind)summary.push(labels.bonusUsed+'.');
+ result.querySelector('#result-summary').textContent=simple?words.simpleSummary:summary.join(' ');
  meter.setAttribute('aria-valuenow',score);
  for(const [i,slot] of slots.entries())slot.classList.toggle('earned',i<earned);
  function setPercent(value){percent.textContent=`${Math.round(value)}%`;fill.style.width=`${value}%`;}
  cancelAnimationFrame(ratingAnimation);
- if(simple||reduce.matches){setPercent(score);return;}
+ if(simple||reduce.matches||!animateRating){setPercent(score);return;}
  setPercent(0);
  const start=performance.now();
  function animate(now){
@@ -1550,7 +1715,6 @@ function settle(){
   progress.resumeAfterWin=true;
   save();
   renderResult(movesUsed);
-  document.querySelector('[data-cmd="next"]').textContent=index<metroLevels.length-1?'Следующий уровень':'К уровням';
   setScreen('win');
  }else if(movesUsed===moveLimit())setScreen('retry');
  else renderTutorial();
@@ -1558,12 +1722,11 @@ function settle(){
 function move(direction){
  if(screen!=='game'||animation||movesUsed===moveLimit()||completed(boardState.balls))return;
  const {next,traces,events,changed}=slideLevel(boardState,landscape?rotatedDirection[direction]:direction,level);
- if(!changed){status.textContent='Шары остались на месте.';return;}
+ if(!changed){status.textContent=words.still;return;}
  movesUsed++;transition={previous:boardState,events};boardState=next;renderHud();
  tutorial.hidden=true;
- const summaries={stop:'Стоп-плитка сработала.',break:'Блок разбит.',gate:'Дверь переключилась.',token:'Диско-жетон собран.'};
- const effect=events.length?summaries[events[0].type]:'';
- const remaining=level.practice?'':`Осталось ходов: ${level.budget-movesUsed}.`;
+ const effect=events.length?words.effect[events[0].type]:'';
+ const remaining=level.practice?'':words.remaining(level.budget-movesUsed);
  status.textContent=[effect,remaining].filter(Boolean).join(' ');
  if(reduce.matches){draw();settle();return;}
  const fracture=events.find(event=>event.type==='break');
@@ -1619,7 +1782,7 @@ lcd.addEventListener('click',e=>{
    progress.tokensSpent+=rewardCost;
    progress.activeRewards[index]=kind;
    openLevel(index);
-   status.textContent=`Выбран бонус «${rewardNames[kind]}».`;
+   status.textContent=words.rewardSelected(words.rewards[kind]);
   }
   return;
  }
@@ -1656,8 +1819,30 @@ orientationPicker.addEventListener('click',event=>{
  for(const option of orientationPicker.querySelectorAll('button'))option.setAttribute('aria-pressed',String(option===control));
  clearTimeout(hold);pointer=null;paintMenu();buildField();draw();if(moving)settle();else renderTutorial();
 });
-nav.innerHTML=metroLevels.map((l,n)=>`<button type="button" class="station-btn" data-level="${n}" aria-label="Уровень ${n+1}, ${l.name}"><span>${n+1}</span><small class="level-rating" aria-hidden="true"><i></i><i></i><i></i></small></button>`).join('');
+nav.innerHTML=metroLevels.map((_,n)=>`<button type="button" class="station-btn" data-level="${n}"><span>${n+1}</span><small class="level-rating" aria-hidden="true"><i></i><i></i><i></i></small></button>`).join('');
 chapterSelect.innerHTML=Array.from({length:Math.ceil(metroLevels.length/10)},(_,page)=>`<button type="button" class="station-btn" data-page="${page}" aria-pressed="false">${page*10+1}–${Math.min(page*10+10,metroLevels.length)}</button>`).join('');
+function applyLanguage(){
+ document.documentElement.lang=language;
+ for(const node of document.querySelectorAll('[data-i18n]'))node.textContent=labels[node.dataset.i18n];
+ for(const node of document.querySelectorAll('[data-i18n-label]'))node.setAttribute('aria-label',labels[node.dataset.i18nLabel]);
+ for(const button of languagePicker.querySelectorAll('button'))button.setAttribute('aria-pressed',String(button.dataset.language===language));
+}
+languagePicker.addEventListener('click',event=>{
+ const button=event.target.closest('[data-language]');
+ if(!button||button.dataset.language===language)return;
+ language=button.dataset.language;
+ words=languageContent[language];
+ labels=interfaceLabels[language];
+ try{localStorage.setItem(languageStorage,language);}catch{}
+ applyLanguage();
+ status.textContent='';
+ prepareMechanicTip();
+ renderTutorial();
+ renderRewardHud();
+ if(screen==='levels')renderLevels();
+ if(screen==='win')renderResult(movesUsed,false);
+});
+applyLanguage();
 paintMenu();buildRatingBalls();
 openLevel(index,false);setScreen('home',false);
 </script></body></html>
